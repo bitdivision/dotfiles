@@ -1,0 +1,3 @@
+SYMLINK_DIRS="scripts"
+UNDOTTED="scripts"
+EXCLUDES="README.md install.sh"

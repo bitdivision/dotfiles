@@ -1,0 +1,5 @@
+getIP() {
+  dig +short myip.opendns.com @resolver1.opendns.com
+}
+
+curl -s ipinfo.io/$(getIP) | grep country | cut -d " " -f4 | tr -d '",'

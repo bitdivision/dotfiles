@@ -1,0 +1,8 @@
+remove Lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add Control = Control_L
+
+keycode 79 = XF86AudioPrev
+keycode 80 = XF86AudioPlay
+keycode 81 = XF86AudioNext
+

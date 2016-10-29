@@ -1,0 +1,99 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+net_avg_samples 3
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# How strict should if_up be when testing an interface for being up?
+# The value is one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, having link
+# and an assigned IP address.
+if_up_strictness link
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 1
+
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+# JSON for i3bar
+
+[
+    {
+        "full_text" : "RAM: ${memeasyfree} ",
+        "color"     : ${if_match ${memperc}>80}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    {
+        "full_text" : "   ${fs_free /home} ",
+        "color"     : ${if_match ${fs_used_perc /home}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    {
+        "full_text" : "   ${fs_free /} ",
+        "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    {
+        "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
+        "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    {
+        "full_text" : " CPU: ${execi 10 ~/scripts/cpu_temp.sh}°C ",
+        "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>60}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    {
+        "separator" : false,
+        "full_text" : "${if_up wlan0}${endif}${if_up wlp1s0}${endif}${if_up eth0}${endif}",
+        "color"     : "\#BBDDFF"
+    },
+    {
+        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlp1s0}${addr wlp1s0}${endif} ",
+        "color"     : "\#BBDDFF"
+    },
+    {
+        "full_text" : " VPN ",
+        "color"     : "${if_up tun0}\#33DD33${else}\#DD2222${endif}"
+    },
+    {
+        "full_text" : " ${execi 30 ~/scripts/wanIP}  [ ${execi 90 ~/scripts/wanCountry} ] ",
+        "color"     : "\#BBDDFF"
+    },
+    {
+        "full_text" : "   ${exec amixer get Master -M | grep -oP '\d*%' | head -n1} ",
+        "color"     : ${if_mixer_mute}"\#BBDDFF"${else}"\#ff0000"${endif}
+    },
+    ${if_existing /sys/class/power_supply/BAT1}
+    {
+        "full_text" : "  ${battery_percent BAT1}% "  ,
+        "color"     : ${if_match ${battery_percent BAT1}<15}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
+    ${endif}
+    {
+        "full_text" : " ${time %A %d %b} ",
+        "color"     : "\#BBDDFF"
+    },
+    {
+        "full_text" : " ${time %T} ",
+        "color"     : "\#BBDDFF"
+    },
+    {
+        "full_text" : ""
+    }
+],

@@ -1,0 +1,64 @@
+ URxvt*scrollBar:                       false
+ URxvt*saveLines:                       7777
+ URxvt*cursorBlink:                     false
+ URxvt*termName:                        rxvt-256color
+ URxvt*font:                            xft:Dejavu Sans Mono:pixelsize=12
+ URxvt*boldFont:                        xft:Dejavu Sans Mono:pixelsize=12
+ URxvt*colorBD:                         orange
+ URxvt*transparent:                     true
+ URxvt*shading:                         12
+ URxvt*fading:				                  15
+ xvt*iso14755_52:			                  false
+ URxvt.perl-ext-common:                 matcher
+ URxvt.urlLauncher:                     urlLauncher $0
+ !URxvt*matcher.pattern.1:              \\b(mailto:)[\\w\-\@;\/?:&=%\$_.+!*\x27(),~#]+ [\\w\-\@;\/?:&=%\$_+!*\x27()~]
+ !URxvt.matcher.launcher.1:             claws-mail
+ URxvt*matcher.pattern.1:               \\bhttps?:\/\/(?:(?:www.youtube|youtube).com\/watch\\?.*v=|youtu.be/)([\\w-]*)
+ URxvt*matcher.launcher.1:              urlLauncher -video $0
+ URxvt*matcher.pattern.2:               \\bhttps?:\/\/vimeo.com\/([\\w-]*)
+ URxvt*matcher.launcher.2:              urlLauncher -video $0
+ URxvt*matcher.pattern.3:               \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(?i)(mp3|ogg|wav|wma|flv)
+ URxvt*matcher.launcher.3:              urlLauncher -audio $0
+ URxvt*matcher.pattern.4:               \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(?i)(jpg|jpeg|png)
+ URxvt*matcher.launcher.4:              urlLauncher -image $0
+
+! Base16 Monokai
+! Scheme: Wimer Hazenberg (http://www.monokai.nl)
+#define base00 #272822
+#define base01 #383830
+#define base02 #49483e
+#define base03 #75715e
+#define base04 #a59f85
+#define base05 #f8f8f2
+#define base06 #f5f4f1
+#define base07 #f9f8f5
+#define base08 #f92672
+#define base09 #fd971f
+#define base0A #f4bf75
+#define base0B #a6e22e
+#define base0C #a1efe4
+#define base0D #66d9ef
+#define base0E #ae81ff
+#define base0F #cc6633
+
+*.foreground:   base05
+*.background:   base00
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base09
+*.color10:      base03
+*.color11:      base02
+*.color12:      base04
+*.color13:      base06
+*.color14:      base0F
+*.color15:      base07
