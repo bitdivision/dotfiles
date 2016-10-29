@@ -29,7 +29,7 @@ sh ~/.fehbg &
 # Start Dunst for notifications
 dunst -mon 1 &
 
-#setxkbmap gb 
+setxkbmap gb 
 
 #Start Dropbox Daemon
 dropboxd &
