@@ -50,10 +50,12 @@ TEXT
         "full_text" : "   ${fs_free /} ",
         "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
+    ${if_match "${nodename}"=="ArchBox"}
     {
         "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
         "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
+    ${endif}
     {
         "full_text" : " CPU: ${execi 10 ~/scripts/cpu_temp.sh}°C ",
         "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>60}"\#ff0000"${else}"\#BBDDFF"${endif}
