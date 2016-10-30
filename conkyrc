@@ -81,10 +81,10 @@ TEXT
         "full_text" : "   ${exec amixer get Master -M | grep -oP '\d*%' | head -n1} ",
         "color"     : ${if_mixer_mute}"\#BBDDFF"${else}"\#ff0000"${endif}
     },
-    ${if_existing /sys/class/power_supply/BAT1}
+    ${if_existing /sys/class/power_supply/BAT0}
     {
-        "full_text" : "  ${battery_percent BAT1}% "  ,
-        "color"     : ${if_match ${battery_percent BAT1}<15}"\#ff0000"${else}"\#BBDDFF"${endif}
+        "full_text" : " ${if_match "${acpiacadapter}"=="on-line"} ${else} ${endif}${battery_percent BAT0}% ",
+        "color"     : ${if_match ${battery_percent BAT0}<15}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     ${endif}
     {
