@@ -1,24 +1,41 @@
 call plug#begin()
 
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
-Plug 'https://github.com/rust-lang/rust.vim'
+"Vim QoL Plugins
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'https://github.com/sickill/vim-monokai'
-Plug 'https://github.com/smancill/conky-syntax.vim'
-Plug 'https://github.com/benekastah/neomake'
+Plug 'sickill/vim-monokai'
+Plug 'benekastah/neomake'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'editorconfig/editorconfig-vim'
 
-if $HOSTNAME=="ArchBox"
-Plug 'https://github.com/Valloric/YouCompleteMe'
+" Language Specific Plugins
+Plug 'rust-lang/rust.vim'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'smancill/conky-syntax.vim'
+
+" Host specific Plugins
+if hostname() == "ArchBox"
+  " YouCompleteMe for rust. Need to run setup.py with rust enabled to work
+  Plug 'https://github.com/Valloric/YouCompleteMe'
 endif
-
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 call plug#end()
 
 syntax enable
+
+" Tab stuff
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
+
+let mapleader = ","
+
+" Installed by vim plug
 colorscheme monokai
 
 " Enable powerline fonts for airline. Must install powerline fonts first
@@ -29,21 +46,38 @@ colorscheme monokai
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-set smarttab
-set expandtab
+" Read js files as jsx for react stuff
+autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
 
-set shiftwidth=2
-set tabstop=2
-set softtabstop=4
-
+" Think this is for transparent terminal?
 hi Normal ctermbg=none
 hi NonText ctermbg=none
 
+" Move text and rehighlight -- vim tip_id=224 
+vnoremap > ><CR>gv 
+vnoremap < <<CR>gv 
 
-" NeoMake config for building rust on the fly.
-let g:neomake_echo_current_error=1
-let g:neomake_verbose=0
-autocmd! BufWritePost *.rs Neomake
-autocmd FileType c,cpp,rust,js autocmd BufWritePre <buffer> :%s/\s\+$//e
+" Remove trailing whitespace on save
+autocmd BufWritePre *.js,*.h,*.c :%s/\s\+$//e
 
-let g:ycm_rust_src_path="/home/bitdivision/rust/rust-master/src/"
+" Leader Commands
+
+" Fugitive mappings
+nmap <Leader>gc :Gcommit
+nmap <Leader>gp :Gpush
+
+" VimRC
+nnoremap <Leader>v :vsplit $MYVIMRC<CR>
+
+" Astyle command to sort out bad C
+command CStyle %!astyle --style=java --align-pointer=middle --add-brackets --break-blocks
+
+" Host specific Configs
+if hostname() == "ArchBox"
+  " NeoMake config for building rust on the fly.
+  let g:neomake_echo_current_error=1
+  let g:neomake_verbose=0
+  autocmd! BufWritePost *.rs Neomake
+  autocmd FileType c,cpp,rust,js autocmd BufWritePre <buffer> :%s/\s\+$//e
+  let g:ycm_rust_src_path="/home/bitdivision/rust/rust-master/src/"
+endif
