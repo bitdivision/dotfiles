@@ -62,7 +62,7 @@ TEXT
     },
     {
         "separator" : false,
-        "full_text" : "${if_up wlan0} ${endif}${if_up wlp1s0} ${endif}${if_up eth0} ${endif}",
+        "full_text" : "${if_up wlan0} ${endif}${if_up wlp1s0} ${endif}${if_up eth0} ${endif}${if_up enp2so} ${endif}",
         "color"     : "\#BBDDFF"
     },
     {
