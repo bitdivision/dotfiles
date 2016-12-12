@@ -50,6 +50,9 @@ xmodmap ~/.xmodmap
 xset s 3600 3600
 xset dpms
 
+# Start gitwatch on the wiki.
+gitwatch -r origin ~/vimwiki &
+
 # Use Devmon for mounting drives automagically.
 ( sleep 10 && devmon ) &
 

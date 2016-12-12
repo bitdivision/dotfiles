@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'vimwiki/vimwiki'
 
 " Language Specific Plugins
 Plug 'rust-lang/rust.vim'
@@ -69,6 +70,9 @@ nmap <Leader>gp :Gpush
 " VimRC
 nnoremap <Leader>v :vsplit $MYVIMRC<CR>
 
+" Show Linenumbers
+nnoremap <Leader>l :set invnumber<CR>
+
 " Astyle command to sort out bad C
 command CStyle %!astyle --style=java --align-pointer=middle --add-brackets --break-blocks
 
@@ -81,3 +85,7 @@ if hostname() == "ArchBox"
   autocmd FileType c,cpp,rust,js autocmd BufWritePre <buffer> :%s/\s\+$//e
   let g:ycm_rust_src_path="/home/bitdivision/rust/rust-master/src/"
 endif
+
+" VimWiki Options
+" auto update ToC
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_toc': 1}]
