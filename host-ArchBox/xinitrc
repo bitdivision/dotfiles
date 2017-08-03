@@ -20,7 +20,7 @@ autocutsel -selection PRIMARY -fork &
 
 export BROWSER=chromium
 
-xrandr --output DVI-I-3 --auto --output HDMI-0 --auto --primary --left-of DVI-I-3
+xrandr --output HDMI3 --auto --output HDMI1 --auto --primary --right-of HDMI3
 
 # Merge Xresources. Mainly for urxvt
 xrdb -merge ~/.Xresources
@@ -49,9 +49,6 @@ xmodmap ~/.xmodmap
 #Turns screen off after 1 hour. Hopefully
 xset s 3600 3600
 xset dpms
-
-# Start gitwatch on the wiki.
-gitwatch -r origin ~/vimwiki &
 
 # Use Devmon for mounting drives automagically.
 ( sleep 10 && devmon ) &
