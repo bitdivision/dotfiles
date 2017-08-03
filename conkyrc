@@ -66,7 +66,7 @@ TEXT
         "color"     : "\#BBDDFF"
     },
     {
-        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlp1s0}${addr wlp1s0}${endif} ",
+        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlp1s0}${addr wlp1s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
         "color"     : "\#BBDDFF"
     },
     {
