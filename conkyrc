@@ -50,23 +50,23 @@ TEXT
         "full_text" : "   ${fs_free /} ",
         "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
-    ${if_match "${nodename}"=="ArchBox"}
-    {
-        "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
-        "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
-    },
-    ${endif}
+#    ${if_match "${nodename}"=="ArchBox"}
+#    {
+#        "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
+#        "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
+#    },
+#    ${endif}
     {
         "full_text" : " CPU: ${execi 10 ~/scripts/cpu_temp.sh}°C ",
         "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>60}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     {
         "separator" : false,
-        "full_text" : "${if_up wlan0} ${endif}${if_up wlp1s0} ${endif}${if_up eth0} ${endif}${if_up enp2so} ${endif}",
+        "full_text" : "${if_up wlan0} ${endif}${if_up wlan1} ${endif}${if_up wlp1s0} ${endif}${if_up eth0} ${endif}${if_up enp2so} ${endif}",
         "color"     : "\#BBDDFF"
     },
     {
-        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlp1s0}${addr wlp1s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
+        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlan1}${addr wlan1}${endif}${if_up wlp1s0}${addr wlp1s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
         "color"     : "\#BBDDFF"
     },
     {

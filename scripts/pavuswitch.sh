@@ -12,25 +12,31 @@ if [ $totalsc -le 1 ]; then # Check whether there are actually multiple cards av
   notify-send -u critical -t 5000 "Nothing to switch, system only has one sound card."
   exit
 fi
+echo "total sinks: $totalsc"
 # $scindex: The Pulseaudio index of the current default sound card
 scindex=$(pacmd list-sinks | awk '$1 == "*" && $2 == "index:" {print $3}')
+echo "current default index: $scindex"
 # $cards: A list of card Pulseaudio indexes
 cards=$(pacmd list-sinks | sed 's|*||' | awk '$1 == "index:" {print $2}')
+echo "Cards: $cards"
 PICKNEXTCARD=1 # Is true when the previous card is default
 count=0 # count of number of iterations
 for CARD in $cards; do
   if [ $PICKNEXTCARD == 1 ]; then
 # $nextsc: The pulseaudio index of the next sound card (to be switched to)
     nextsc=$CARD
+    echo "Next sc: $nextsc"
     PICKNEXTCARD=0
 # $nextind: The numerical index (1 to totalsc) of the next card
     nextind=$count
+    echo "Next index: $nextind"
   fi
   if [ $CARD == $scindex ]; then # Choose the next card as default
     PICKNEXTCARD=1
   fi
   count=$((count+1))
 done
+echo "Setting default to $nextsc"
 pacmd "set-default-sink $nextsc" # switch default sound card to next
 
 # $inputs: A list of currently playing inputs

@@ -28,7 +28,9 @@ bindcode 123 exec amixer sset Master 5%+
 #bindcode control+127 exec mpc next
 bindsym $mod+Insert exec /home/bitdivision/scripts/pavuswitch.sh
 
-bindsym $mod+n exec chromium
+bindsym $mod+n exec firefox 
+
+bindsym $mod+Shift+n exec "firefox -P ublock -private-window
 
 #Suspends computer, requires some sudo tom-foolery
 bindsym $mod+control+p exec sudo pm-suspend
@@ -42,8 +44,8 @@ bindsym $mod+control+l exec i3lock -c 111111 -d
 
 bindcode 172 exec nuvolaplayer3ctl action toggle-play
 
-bindcode 171 exec nuvolaplayer3ctl action next-song
-bindcode 173 exec nuvolaplayer3ctl action prev-song
+bindcode 171 exec playerctl next
+bindcode 173 exec playerctl previous
 
 ########################################################################
 
@@ -177,5 +179,5 @@ bar {
         tray_output primary
 }
 
-exec /home/bitdivision/scripts/i3-startup.sh
+#exec /home/bitdivision/scripts/i3-startup.sh
 

@@ -19,8 +19,11 @@ autocutsel -fork &
 autocutsel -selection PRIMARY -fork &
 
 export BROWSER=chromium
-
-xrandr --output HDMI3 --auto --output HDMI1 --auto --primary --right-of HDMI3
+# For nvidia card
+xrandr --output DVI-I-3 --auto --output DVI-I-2 --auto --primary --right-of DVI-I-3
+#HDMI Version
+#xrandr --output HDMI3 --auto --output HDMI1 --auto --primary --right-of HDMI3
+#xrandr --output HDMI1 --auto --output HDMI2 --auto --primary --right-of HDMI1
 
 # Merge Xresources. Mainly for urxvt
 xrdb -merge ~/.Xresources
@@ -33,6 +36,8 @@ dunst -mon 1 &
 
 #setxkbmap gb 
 
+clipit &
+
 #Start up the Sabnzb Daemon (localhost:8080)
 sabnzbd &
 
@@ -40,7 +45,7 @@ sabnzbd &
 start-pulseaudio-x11 &
 
 #Start Dropbox Daemon
-dropboxd &
+#dropboxd &
 
 #Start xbindkeys to pick up key shortcuts/mouse
 xbindkeys &
@@ -54,6 +59,7 @@ xset dpms
 ( sleep 10 && devmon ) &
 
 # Start i3 Window Manager
-exec i3 -V >> ~/.i3/i3log >&1
+exec i3 --shmlog-size=26214400
+#exec i3 -V >> ~/.i3/i3log >&1
 
 

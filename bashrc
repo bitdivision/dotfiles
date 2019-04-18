@@ -814,3 +814,7 @@ complete -o default -F _meta_comp command type which man nice time
 # mode:shell-script
 # sh-shell:bash
 # End:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

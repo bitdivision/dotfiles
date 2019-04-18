@@ -2,9 +2,9 @@ call plug#begin()
 
 "Vim QoL Plugins
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
 Plug 'sickill/vim-monokai'
-Plug 'benekastah/neomake'
+"Plug 'benekastah/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -12,7 +12,14 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vimwiki/vimwiki'
 
 " Language Specific Plugins
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'junegunn/fzf'
+Plug 'ncm2/ncm2'
+
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'smancill/conky-syntax.vim'
@@ -77,14 +84,14 @@ nnoremap <Leader>l :set invnumber<CR>
 command CStyle %!astyle --style=java --align-pointer=middle --add-brackets --break-blocks
 
 " Host specific Configs
-if hostname() == "ArchBox"
-  " NeoMake config for building rust on the fly.
-  let g:neomake_echo_current_error=1
-  let g:neomake_verbose=0
-  autocmd! BufWritePost *.rs Neomake
-  autocmd FileType c,cpp,rust,js autocmd BufWritePre <buffer> :%s/\s\+$//e
-  let g:ycm_rust_src_path="/home/bitdivision/rust/rust-master/src/"
-endif
+"if hostname() == "ArchBox"
+"  " NeoMake config for building rust on the fly.
+"  let g:neomake_echo_current_error=1
+"  let g:neomake_verbose=0
+"  autocmd! BufWritePost *.rs Neomake
+"  autocmd FileType c,cpp,rust,js autocmd BufWritePre <buffer> :%s/\s\+$//e
+"  let g:ycm_rust_src_path="/home/bitdivision/rust/rust-master/src/"
+"endif
 
 " VimWiki Options
 " auto update ToC
@@ -102,3 +109,15 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+set mouse=a
+
+set hidden 
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>

@@ -21,7 +21,7 @@ plugins=(git,archlinux,github)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin:/opt/resolve/bin
 
 
 # Added to enable home and end keys
@@ -268,3 +268,14 @@ alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
 
 alias vim="nvim"
+
+export WORKON_HOME=~/virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+fpath=('/home/bitdivision/scripts/git-subrepo/share/zsh-completion' $fpath)
+source /home/bitdivision/scripts/git-subrepo/.rc
+
+# nvm removed due to slow startup. Can load on demand
+alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+source ~/scripts/znvm/znvm.sh
+
+export XDG_MUSIC_DIR=/home/bitdivison/music

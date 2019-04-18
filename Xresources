@@ -1,5 +1,9 @@
  URxvt*scrollBar:                       false
  URxvt*saveLines:                       7777
+ URxvt*scrollTtyOutput:                 false
+ URxvt*scrollWithBuffer:                true
+ URxvt*scrollTtyKeypress:               true
+
  URxvt*cursorBlink:                     false
  URxvt*termName:                        rxvt-256color
  URxvt*font:                            xft:Dejavu Sans Mono:pixelsize=12
