@@ -1,0 +1,1 @@
+/home/bitdivision/.dotfiles/host-ArchBox/xinitrc
