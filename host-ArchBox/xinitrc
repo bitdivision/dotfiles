@@ -3,63 +3,36 @@
 # ~/.xinitrc
 #
 # Executed by startx (run your window manager from here)
+#xrandr --auto
+# 
+#[ -f /etc/xprofile ] && . /etc/xprofile
+#[ -f ~/.xprofile ] && . ~/.xprofile
 
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
-fi
-
-[ -f /etc/xprofile ] && . /etc/xprofile
-[ -f ~/.xprofile ] && . ~/.xprofile
-
-# Should improve copy/pasta in some X apps.
-autocutsel -fork &
-autocutsel -selection PRIMARY -fork &
-
-export BROWSER=chromium
-# For nvidia card
-xrandr --output DVI-I-3 --auto --output DVI-I-2 --auto --primary --right-of DVI-I-3
-#HDMI Version
-#xrandr --output HDMI3 --auto --output HDMI1 --auto --primary --right-of HDMI3
-#xrandr --output HDMI1 --auto --output HDMI2 --auto --primary --right-of HDMI1
-
-# Merge Xresources. Mainly for urxvt
+## Merge Xresources. Mainly for urxvt
 xrdb -merge ~/.Xresources
 
-# Set the background to the one configured
+## Set the background to the one configured
 sh ~/.fehbg &
 
-# Start Dunst for notifications
+## Start Dunst for notifications
 dunst -mon 1 &
 
-#setxkbmap gb 
+setxkbmap gb 
 
 clipit &
 
-#Start up the Sabnzb Daemon (localhost:8080)
-sabnzbd &
+## Udiskie to allow automount of USB. Not sure why there isn't a systemd service?
+udiskie &
 
-#Start pulseaudio, (On fresh arch: install 32 bit alsa/pulse libs and alsa-config module)
-start-pulseaudio-x11 &
-
-#Start Dropbox Daemon
-#dropboxd &
-
-#Start xbindkeys to pick up key shortcuts/mouse
+##Start xbindkeys to pick up key shortcuts/mouse
 xbindkeys &
 xmodmap ~/.xmodmap
 
-#Turns screen off after 1 hour. Hopefully
-xset s 3600 3600
-xset dpms
 
-# Use Devmon for mounting drives automagically.
-( sleep 10 && devmon ) &
-
-# Start i3 Window Manager
-exec i3 --shmlog-size=26214400
-#exec i3 -V >> ~/.i3/i3log >&1
+## Start i3 Window Manager
+exec i3 
+##exec startxfce4
+## 
+## exec i3 -V >> ~/.i3/i3log >&1
 
 

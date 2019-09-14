@@ -11,15 +11,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vimwiki/vimwiki'
 
-" Language Specific Plugins
-" Plug 'rust-lang/rust.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'junegunn/fzf'
-Plug 'ncm2/ncm2'
-
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'smancill/conky-syntax.vim'
@@ -98,6 +89,8 @@ command CStyle %!astyle --style=java --align-pointer=middle --add-brackets --bre
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_toc': 1}]
 
 " Copy to system clipboard
+" On linux, best to install xclip to provide clipboard to vim
+"set clipboard=unnamedplus
 
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_

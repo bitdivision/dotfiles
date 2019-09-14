@@ -43,35 +43,28 @@ TEXT
         "color"     : ${if_match ${memperc}>80}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     {
-        "full_text" : "   ${fs_free /home} ",
+        "full_text" : " ${fs_free /home} ",
         "color"     : ${if_match ${fs_used_perc /home}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     {
         "full_text" : "   ${fs_free /} ",
         "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
-#    ${if_match "${nodename}"=="ArchBox"}
-#    {
-#        "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
-#        "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
-#    },
-#    ${endif}
+    {
+        "full_text" : " GPU: ${execi 10 ~/scripts/gpu_temp.sh}°C ",
+        "color"     : ${if_match ${execi 10 ~/scripts/gpu_temp.sh}>90}"\#ff0000"${else}"\#BBDDFF"${endif}
+    },
     {
         "full_text" : " CPU: ${execi 10 ~/scripts/cpu_temp.sh}°C ",
-        "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>60}"\#ff0000"${else}"\#BBDDFF"${endif}
+        "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>65}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     {
-        "separator" : false,
-        "full_text" : "${if_up wlan0} ${endif}${if_up wlan1} ${endif}${if_up wlp1s0} ${endif}${if_up eth0} ${endif}${if_up enp2so} ${endif}",
-        "color"     : "\#BBDDFF"
-    },
-    {
-        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlan1}${addr wlan1}${endif}${if_up wlp1s0}${addr wlp1s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
+        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlan1}${addr wlan1}${endif}${if_up wlp5s0}${addr wlp5s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
         "color"     : "\#BBDDFF"
     },
     {
         "full_text" : " VPN ",
-        "color"     : "${if_up tun0}\#33DD33${else}\#DD2222${endif}"
+        "color"     : "${if_up mullvad-nl3}\#33DD33${else}\#DD2222${endif}"
     },
     {
         "full_text" : " ${execi 30 ~/scripts/wanIP}  [ ${execi 90 ~/scripts/wanCountry} ] ",

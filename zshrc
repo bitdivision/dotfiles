@@ -16,13 +16,13 @@ export ZSH_THEME="steeef"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git,archlinux,github)
+plugins=(git archlinux github)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin:/opt/resolve/bin
-
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin:/opt/resolve/bin:/home/bitdivision/scripts
 
 # Added to enable home and end keys
 #
@@ -31,43 +31,6 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 # here. Issue possibly caused by setting $TERM somewhere, should be done by zsh
 bindkey "^[[7~" beginning-of-line
 bindkey "^[[8~" end-of-line
-
-
-extract() {
-    local c e i
-
-    (($#)) || return
-
-    for i; do
-        c=''
-        e=1
-
-        if [[ ! -r $i ]]; then
-            echo "$0: file is unreadable: \`$i'" >&2
-            continue
-        fi
-
-        case $i in
-        *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
-               c='bsdtar xvf';;
-        *.7z)  c='7z x';;
-        *.Z)   c='uncompress';;
-        *.bz2) c='bunzip2';;
-        *.exe) c='cabextract';;
-        *.gz)  c='gunzip';;
-        *.rar) c='unrar x';;
-        *.xz)  c='unxz';;
-        *.zip) c='unzip';;
-        *)     echo "$0: unrecognized file extension: \`$i'" >&2
-               continue;;
-        esac
-
-        command $c "$i"
-        e=$?
-    done
-
-    return $e
-}
 
 alias diff='colordiff'              # requires colordiff package
 alias more='less'
@@ -86,12 +49,7 @@ alias ssh-x='ssh -c arcfour,blowfish-cbc -XC'
 alias cdzoe='cd ~/zoe/zoetrope-widget'
 alias cdrust='cd ~/Dropbox/code/rust'
 
-hash -d serv=~/work/year_4/server_software/cw_2/
-
-
 eval $(dircolors -b)
-
-
 
 #########################
 #Environment Vars
@@ -269,13 +227,15 @@ unset GREP_OPTIONS
 
 alias vim="nvim"
 
-export WORKON_HOME=~/virtualenvs
-source /usr/bin/virtualenvwrapper.sh
-fpath=('/home/bitdivision/scripts/git-subrepo/share/zsh-completion' $fpath)
-source /home/bitdivision/scripts/git-subrepo/.rc
-
 # nvm removed due to slow startup. Can load on demand
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 source ~/scripts/znvm/znvm.sh
 
 export XDG_MUSIC_DIR=/home/bitdivison/music
+
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+export PATH="$PATH:$HOME/go/bin"
+export GOPATH="/home/bitdivision/go"

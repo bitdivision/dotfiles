@@ -1,3 +1,11 @@
+Xft.dpi: 160
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
  URxvt*scrollBar:                       false
  URxvt*saveLines:                       7777
  URxvt*scrollTtyOutput:                 false
@@ -6,8 +14,8 @@
 
  URxvt*cursorBlink:                     false
  URxvt*termName:                        rxvt-256color
- URxvt*font:                            xft:Dejavu Sans Mono:pixelsize=12
- URxvt*boldFont:                        xft:Dejavu Sans Mono:pixelsize=12
+ URxvt*font:                            xft:Dejavu Sans Mono:size=9
+ URxvt*boldFont:                        xft:Dejavu Sans Mono:size=9
  URxvt*colorBD:                         orange
  URxvt*transparent:                     true
  URxvt*shading:                         12

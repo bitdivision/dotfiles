@@ -20,13 +20,14 @@ bindsym $mod+p focus output right
 bindsym $mod+b workspace back_and_forth
 
 #Controls for audio
-#bindcode 107 exec mpc toggle
-bindcode 122 exec amixer sset Master 5%-
-bindcode 123 exec amixer sset Master 5%+
-#bindcode 172 exec /home/bitdivision/scripts/pavuswitch.sh
-#bindcode control+78 exec mpc prev
-#bindcode control+127 exec mpc next
-bindsym $mod+Insert exec /home/bitdivision/scripts/pavuswitch.sh
+bindcode $mod+117 exec pactl set-sink-volume 1 -5%
+bindcode $mod+112 exec pactl set-sink-volume 1 +5%
+bindcode $mod+118 exec playerctl play-pause
+bindcode $mod+110 exec playerctl next
+bindcode $mod+115 exec playerctl previous
+
+#
+bindsym $mod+Delete exec /home/bitdivision/scripts/pavuswitch.sh
 
 bindsym $mod+n exec firefox 
 
@@ -42,10 +43,9 @@ bindsym $mod+Shift+Tab workspace prev_on_output
 # Lock the screen to dark colour with mod+ctrl+l
 bindsym $mod+control+l exec i3lock -c 111111 -d
 
-bindcode 172 exec nuvolaplayer3ctl action toggle-play
 
-bindcode 171 exec playerctl next
-bindcode 173 exec playerctl previous
+# File Manager
+bindsym $mod+m exec pcmanfm
 
 ########################################################################
 
