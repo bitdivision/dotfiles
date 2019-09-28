@@ -8,6 +8,7 @@ antigen bundle pip
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle docker
+antigen bundle zsh-users/zsh-autosuggestions
 
 antigen theme steeef
 
@@ -39,8 +40,7 @@ alias compDown='/media/BackupDrive/Downloads/Complete'
 alias thesis='cd /home/bitdivision/work/year_4/Thesis'
 alias thesisCode='cd /home/bitdivision/work/year_4/Thesis/Code' 
 alias ssh-x='ssh -c arcfour,blowfish-cbc -XC'
-alias cdzoe='cd ~/zoe/zoetrope-widget'
-alias cdrust='cd ~/Dropbox/code/rust'
+alias ls=exa
 
 eval $(dircolors -b)
 
