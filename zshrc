@@ -21,8 +21,6 @@ plugins=(git archlinux github zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin:/opt/resolve/bin:/home/bitdivision/scripts
 
 # Added to enable home and end keys
 #
@@ -53,10 +51,12 @@ eval $(dircolors -b)
 
 #########################
 #Environment Vars
-export SAUCE_USERNAME="zoetrope"
-export SAUCE_ACCESS_KEY="60c4e1ff-eed7-4ae0-97b9-ba433ed4b22f"
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/share/java/apache-ant/bin:/opt/drbl/bin:/opt/drbl/sbin:/usr/bin/core_perl:/home/bitdivision/inPath:/home/bitdivision/.gem/ruby/2.2.0/bin:/home/bitdivision/.cargo/bin:/opt/resolve/bin:/home/bitdivision/scripts
 export TRAVIS_BRANCH="v3"
 export EDITOR="nvim"
+export PATH="$PATH:$HOME/go/bin"
+export GOPATH="/home/bitdivision/go"
 
 ##########################
 #Following is copied from github.com/cypher/dotfiles
@@ -201,6 +201,10 @@ alias rd='rmdir'
 alias md='mkdir -p'
 alias cdcode='cd ~/Dropbox/code'
 
+alias vim="nvim"
+# Better ls written in rust
+alias ls=exa
+
 # Grep in history
 function greph () { history 0 | grep -i $1 }
 
@@ -221,21 +225,11 @@ function preexec () {
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#Fix grep options deprecated warning that is appearing on every command
-alias grep="/usr/bin/grep $GREP_OPTIONS"
-unset GREP_OPTIONS
-
-alias vim="nvim"
-
 # nvm removed due to slow startup. Can load on demand
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 source ~/scripts/znvm/znvm.sh
-
-export XDG_MUSIC_DIR=/home/bitdivison/music
 
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
-export PATH="$PATH:$HOME/go/bin"
-export GOPATH="/home/bitdivision/go"
