@@ -1,24 +1,17 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.oh-my-zsh
+# Load Antigen plugin manager
+source /usr/share/zsh/share/antigen.zsh
 
-# Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="steeef"
+antigen use oh-my-zsh
 
-# Set to this to use case-sensitive completion
-# export CASE_SENSITIVE="true"
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle docker
 
-# Comment this out to disable weekly auto-update checks
-# export DISABLE_AUTO_UPDATE="true"
+antigen theme steeef
 
-# Uncomment following line if you want to disable colors in ls
-# export DISABLE_LS_COLORS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git archlinux github)
-
-source $ZSH/oh-my-zsh.sh
+antigen apply
 
 # Customize to your needs...
 export PYENV_ROOT=$HOME/.pyenv
@@ -219,8 +212,6 @@ function preexec () {
     title "$1" "$USER@%m" "%35<...<%~"
 }
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 #Fix grep options deprecated warning that is appearing on every command
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
@@ -239,3 +230,8 @@ fi
 
 export PATH="$PATH:$HOME/go/bin"
 export GOPATH="/home/bitdivision/go"
+
+######## HMRC Specific ##########
+export TF_PLUGIN_CACHE_DIR=~/.tfcache/
+
+#################################

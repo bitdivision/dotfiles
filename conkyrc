@@ -59,7 +59,7 @@ TEXT
         "color"     : ${if_match ${execi 10 ~/scripts/cpu_temp.sh}>65}"\#ff0000"${else}"\#BBDDFF"${endif}
     },
     {
-        "full_text" : "${if_up wlan0}${addr wlan0}${endif}${if_up wlan1}${addr wlan1}${endif}${if_up wlp5s0}${addr wlp5s0}${endif}${if_up enp2s0}${addr enp2so}${endif}${if_up eth0}${addr eth0}${endif} ",
+        "full_text" : "${execi 10 ~/scripts/wireless_ip.sh} ",
         "color"     : "\#BBDDFF"
     },
     {
