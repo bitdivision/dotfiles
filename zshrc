@@ -1,34 +1,18 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.oh-my-zsh
+# Load Antigen plugin manager
+source /usr/share/zsh/share/antigen.zsh
 
-# Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="steeef"
+antigen use oh-my-zsh
 
-# Set to this to use case-sensitive completion
-# export CASE_SENSITIVE="true"
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle docker
+antigen bundle zsh-users/zsh-autosuggestions
 
-# Comment this out to disable weekly auto-update checks
-# export DISABLE_AUTO_UPDATE="true"
+antigen theme steeef
 
-# Uncomment following line if you want to disable colors in ls
-# export DISABLE_LS_COLORS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git archlinux github zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
-
-# Added to enable home and end keys
-#
-# Values in /etc/inputrc are correct (^[[1~ and ^[[4~) however still doesn't
-# work. Testing in urxvt with Ctrl-V Home/End gives 7 and 8 so these are mapped
-# here. Issue possibly caused by setting $TERM somewhere, should be done by zsh
-bindkey "^[[7~" beginning-of-line
-bindkey "^[[8~" end-of-line
+antigen apply
 
 alias diff='colordiff'              # requires colordiff package
 alias more='less'
@@ -44,8 +28,34 @@ alias compDown='/media/BackupDrive/Downloads/Complete'
 alias thesis='cd /home/bitdivision/work/year_4/Thesis'
 alias thesisCode='cd /home/bitdivision/work/year_4/Thesis/Code' 
 alias ssh-x='ssh -c arcfour,blowfish-cbc -XC'
-alias cdzoe='cd ~/zoe/zoetrope-widget'
-alias cdrust='cd ~/Dropbox/code/rust'
+alias ls=exa
+alias la='exa -lhAF'
+alias ll='exa -lh'
+alias lh='exa -hAl'
+alias l='exa -lhF'
+
+alias '..'='cd ..'
+
+# The -g makes them global aliases, so they're expaned even inside commands
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+
+# Aliases '-' to 'cd -'
+alias -- -='cd -'
+
+alias cp='nocorrect cp'         # no spelling correction on cp
+alias mkdir='nocorrect mkdir'   # no spelling correction on mkdir
+alias mv='nocorrect mv'         # no spelling correction on mv
+alias rm='nocorrect rm'         # no spelling correction on rm
+
+# Execute rmdir
+alias rd='rmdir'
+# Execute rmdir
+alias md='mkdir -p'
+alias cdcode='cd ~/Dropbox/code'
+
+alias vim="nvim"
 
 eval $(dircolors -b)
 
@@ -67,27 +77,10 @@ autoload -U zstyle+
 ## General completion technique
 ## complete as much as you can ..
 zstyle ':completion:*' completer _complete _list _oldlist _expand _ignored _match _correct _approximate _prefix
-## complete less
-#zstyle ':completion:*' completer _expand _complete _list _ignored _approximate
-## complete minimal
-#zstyle ':completion:*' completer _complete _ignored
-
 ## determine in which order the names (files) should be
 ## listed and completed when using menu completion.
-## `size' to sort them by the size of the file
-## `links' to sort them by the number of links to the file
-## `modification' or `time' or `date' to sort them by the last modification time
-## `access' to sort them by the last access time
-## `inode' or `change' to sort them by the last inode change time
-## `reverse' to sort in decreasing order
-## If the style is set to any other value, or is unset, files will be
-## sorted alphabetically by name.
 zstyle ':completion:*' file-sort name
 
-## case-insensitive (uppercase from lowercase) completion
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-## case-insensitive (all) completion
-#zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 ## case-insensitive,partial-word and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
@@ -97,10 +90,6 @@ zstyle ':completion:*' use-cache 1
 
 ## add colors to completions
 zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}
-
-### If you want zsh's completion to pick up new commands in $path automatically
-### comment out the next line and un-comment the following 5 lines
-#zstyle ':completion:::::' completer _complete _approximate
 
 _force_rehash() {
   (( CURRENT == 1 )) && rehash
@@ -177,33 +166,6 @@ setopt long_list_jobs       # List jobs in long format
 
 # do we have GNU ls with color-support?
 #alias ls='ls -bh -CF'
-alias la='ls -lhAF'
-alias ll='ls -lh'
-alias lh='ls -hAl'
-alias l='ls -lhF'
-
-alias '..'='cd ..'
-# The -g makes them global aliases, so they're expaned even inside commands
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-# Aliases '-' to 'cd -'
-alias -- -='cd -'
-
-alias cp='nocorrect cp'         # no spelling correction on cp
-alias mkdir='nocorrect mkdir'   # no spelling correction on mkdir
-alias mv='nocorrect mv'         # no spelling correction on mv
-alias rm='nocorrect rm'         # no spelling correction on rm
-
-# Execute rmdir
-alias rd='rmdir'
-# Execute rmdir
-alias md='mkdir -p'
-alias cdcode='cd ~/Dropbox/code'
-
-alias vim="nvim"
-# Better ls written in rust
-alias ls=exa
 
 # Grep in history
 function greph () { history 0 | grep -i $1 }
@@ -223,8 +185,6 @@ function preexec () {
     title "$1" "$USER@%m" "%35<...<%~"
 }
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # nvm removed due to slow startup. Can load on demand
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 source ~/scripts/znvm/znvm.sh
@@ -233,3 +193,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
+######## HMRC Specific ##########
+export TF_PLUGIN_CACHE_DIR=~/.tfcache/
+
+#################################

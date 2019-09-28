@@ -1,0 +1,86 @@
+# A wrapper around Terraform: runs terraform with given command in an environment taken from current directory.
+#
+# Workflow:
+#  cd webops-terraform/$component/$environment
+#  tf a|apply
+#  tf g|get
+#  tf i|init
+#  tf l|landscape    # plan piped through landscape: https://github.com/coinbase/terraform-landscape
+#  tf o|output
+#  tf p|plan
+#  tf r|refresh
+#  tf sl|state list
+#  tf ss|state show
+#  tf u|unlock (force-unlock)
+
+tf() {
+    local DEBUG=0
+    [[ -z $1 ]] && {
+        echo "$funcstack[1] requires at least 1 argument, exiting."
+        echo "Usage: $funcstack[1] (a|g|i|l|p|sl|ss|u)"
+        kill -INT $$
+    }
+    local ENVIRONMENTS=("management" "sandbox" "integration" "development" "qa" "staging" "externaltest" "production")
+    local ENV_FROM_PATH="$(basename ${PWD})"
+    local TF_PLAN=./tf.plan
+    case $1 in
+        a|apply)
+            [[ -f "${TF_PLAN}" ]] || {
+                echo "The ${TF_PLAN} file does not exist, run the 'plan' command first."
+                kill -INT $$
+            }
+            local TF_CMD="apply ${TF_PLAN}"
+            ;;
+        g|get)
+            local TF_CMD="get -update=true"
+            ;;
+        i|init)
+            local TF_CMD="init"
+            ;;
+        l|landscape)
+            local TF_CMD="plan -out=${TF_PLAN} |landscape"
+            ;;
+        o|output)
+            local TF_CMD="output"
+            ;;
+        p|plan)
+            local TF_CMD="plan -out=${TF_PLAN}"
+            ;;
+        r|refresh)
+            local TF_CMD="refresh"
+            ;;
+        sl|state-list)
+            local TF_CMD="state list"
+            ;;
+        ss|state-show)
+            [[ $# -eq 2 ]] || {
+                echo "The 'state show' command requires the a resource as argument, exiting."
+                kill -INT $$
+            }
+            local TF_CMD="state show $2"
+            ;;
+        u|unlock)
+            [[ $# -eq 2 ]] || {
+                echo "The 'force-unlock' command requires the lock-id as argument, exiting."
+                kill -INT $$
+            }
+            local TF_CMD="force-unlock $2" # "ed250102-a3c7-3490-275c-8bd02bf7e63d"
+            ;;
+        *)
+            echo "Not recognized parameter."
+            echo "Usage: $funcstack[1] (a|i|l|p|sl|ss|u)"
+            kill -INT $$
+            ;;
+    esac
+    aws_otp
+    local COMMAND="aws-profile terraform ${TF_CMD}"
+    for e in "${ENVIRONMENTS[@]}"; do
+        [[ "${ENV_FROM_PATH}" == "${e}" ]] && {
+            local AWS_PROFILE="webops-${e}"
+            eval "AWS_DEFAULT_PROFILE=\"${AWS_PROFILE}\" ${COMMAND}"
+            local TF_RUN=1
+            break
+        }
+    done
+    [[ "${TF_RUN}" -eq 1 ]] || echo "'${ENV_FROM_PATH}' does not match any of the reconized environments: ${ENVIRONMENTS[@]}"
+}
