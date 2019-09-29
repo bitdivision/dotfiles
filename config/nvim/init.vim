@@ -104,7 +104,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_toc': 1}]
 
 " Copy to system clipboard
 " On linux, best to install xclip to provide clipboard to vim
-"set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_
